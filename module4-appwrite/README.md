@@ -12,12 +12,12 @@ All APIs are documented using Swagger UI for easy testing and integration.
 
 ## What is Completed
 
-### ✅ Appwrite Integration
+###  Appwrite Integration
 - Connected to Appwrite Cloud
 - Configured Appwrite server SDK (`node-appwrite`)
 - Secure usage via API Key (server-side only)
 
-### ✅ Database Wrapper APIs
+###  Database Wrapper APIs
 Wrapper APIs built over Appwrite Database (Tables/Collections):
 - Create a project
 - Fetch all projects
@@ -25,11 +25,11 @@ Wrapper APIs built over Appwrite Database (Tables/Collections):
 
 These APIs act as a controlled interface between the system and Appwrite.
 
-### ✅ Swagger Documentation
+###  Swagger Documentation
 - All APIs are documented using Swagger (OpenAPI 3.0)
 - Interactive API testing available through browser
 
-### ✅ Clean Architecture
+###  Clean Architecture
 - Modular folder structure
 - Separation of routes, controllers, config, and docs
 - Type-safe code using TypeScript
