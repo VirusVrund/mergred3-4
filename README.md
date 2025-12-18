@@ -115,6 +115,22 @@ module4-appwrite/
 
 ---
 
+# Input Validation (Zod)
+
+All incoming requests are validated at the API boundary using Zod. Each API endpoint defines a dedicated validation schema for request bodies and route parameters. Invalid or malformed requests are rejected before any business logic or Appwrite service is executed. Validation logic is centralized and reusable across controllers. TypeScript types are inferred directly from Zod schemas to ensure runtime validation and compile-time type safety remain in sync.
+
+This guarantees that only well-formed, type-safe data is processed by the system.
+
+--- 
+
+# Centralized Error Handling
+
+Module 4 uses a centralized error handling strategy to prevent leaking Appwrite-specific or internal errors to API consumers. Custom HttpError abstractions represent domain-level errors within the application. Errors originating from the Appwrite SDK are mapped to clean HTTP errors before being returned to clients. Controllers do not format error responses directly and instead throw domain errors. A global Express error handler captures all errors and formats API responses consistently.
+
+This approach keeps controllers clean, improves maintainability, and ensures stable and predictable error responses across the system.
+
+---
+
 ## Swagger Documentation
 
 Swagger UI is available at:
