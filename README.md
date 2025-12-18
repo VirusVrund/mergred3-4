@@ -2,14 +2,32 @@
 
 ## Overview
 
-This project implements Module 4 of the backend system, which focuses on building normal wrapper APIs over Appwrite services using Node.js and TypeScript.
 
-Instead of exposing Appwrite directly, this module provides a clean API layer that interacts with Appwrite Cloud internally and exposes controlled REST endpoints.
+Module 4 is responsible for exposing **clean, controlled REST APIs** that act as a wrapper over **Appwrite services**.
 
-All APIs are documented using Swagger UI for easy testing and integration.
+Instead of allowing direct access to Appwrite from clients or other services, this module provides an abstraction layer that:
+- Encapsulates Appwrite SDK usage
+- Standardizes API responses
+- Handles validation and error mapping
+- Documents APIs using Swagger (OpenAPI)
+
+> ⚠️ This module **does NOT** handle authentication, rate limiting, or authorization logic.  
+Those concerns are enforced by upstream modules in the system.
 
 ---
+### Request Flow
 
+Client
+  ↓
+API Gateway (Module 1 - Rate Limit)
+  ↓
+Auth + Roles (Module 2 & 3)
+  ↓
+Module 4 (Appwrite Wrapper APIs)
+  ↓
+Appwrite Cloud
+
+---
 ## What is Completed
 
 ###  Appwrite Integration
