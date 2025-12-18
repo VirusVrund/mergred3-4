@@ -16,6 +16,7 @@ Those concerns are enforced by upstream modules in the system.
 
 ---
 ### Request Flow
+```
 Client
 ↓
 Module 1 – API Gateway
@@ -30,7 +31,7 @@ Module 3 – Authorization
 Module 4 – Appwrite Wrapper APIs
 ↓
 Appwrite Cloud Services
-
+```
 ---
 ## What is Completed
 
