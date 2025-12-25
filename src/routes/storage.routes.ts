@@ -1,4 +1,6 @@
 import { Router } from "express";
+import { authorize } from "../middlewares/authorize";
+import { Roles } from "../constants/roles";
 
 import {
   createFile,
@@ -55,7 +57,7 @@ const router = Router();
  *       201:
  *         description: File uploaded successfully
  */
-router.post("/buckets/:bucketId/files", createFile);
+router.post("/buckets/:bucketId/files", authorize([Roles.ADMIN, Roles.PAYMENTS]), createFile);
 
 /**
  * @swagger
@@ -87,7 +89,7 @@ router.post("/buckets/:bucketId/files", createFile);
  *       200:
  *         description: List of files
  */
-router.get("/buckets/:bucketId/files", listFiles);
+router.get("/buckets/:bucketId/files", authorize([Roles.ADMIN, Roles.PAYMENTS, Roles.REPORTS]), listFiles);
 
 /**
  * @swagger
@@ -106,7 +108,7 @@ router.get("/buckets/:bucketId/files", listFiles);
  *       200:
  *         description: File metadata
  */
-router.get("/buckets/:bucketId/files/:fileId", getFile);
+router.get("/buckets/:bucketId/files/:fileId", authorize([Roles.ADMIN, Roles.PAYMENTS, Roles.REPORTS]), getFile);
 
 /**
  * @swagger
@@ -131,6 +133,7 @@ router.get("/buckets/:bucketId/files/:fileId", getFile);
  */
 router.get(
   "/buckets/:bucketId/files/:fileId/download",
+  authorize([Roles.ADMIN, Roles.PAYMENTS, Roles.REPORTS]),
   downloadFile
 );
 
@@ -157,6 +160,7 @@ router.get(
  */
 router.get(
   "/buckets/:bucketId/files/:fileId/view",
+  authorize([Roles.ADMIN, Roles.PAYMENTS, Roles.REPORTS]),
   viewFile
 );
 
@@ -199,6 +203,7 @@ router.get(
  */
 router.get(
   "/buckets/:bucketId/files/:fileId/preview",
+  authorize([Roles.ADMIN, Roles.PAYMENTS, Roles.REPORTS]),
   getFilePreview
 );
 
@@ -233,6 +238,7 @@ router.get(
  */
 router.put(
   "/buckets/:bucketId/files/:fileId",
+  authorize([Roles.ADMIN, Roles.PAYMENTS]),
   updateFile
 );
 
@@ -255,6 +261,7 @@ router.put(
  */
 router.delete(
   "/buckets/:bucketId/files/:fileId",
+  authorize([Roles.ADMIN]),
   deleteFile
 );
 
