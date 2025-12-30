@@ -7,27 +7,24 @@ export class AuthLogger {
         endpoint: string,
         reason: string,
         required?: ReadonlyArray<string>,
-        userRoles?: ReadonlyArray<string>,
-        owner?: string
+        userPermissions?: ReadonlyArray<string>
     ): void {
         const timestamp = new Date().toISOString();
         console.warn('[AUTH_DENIAL]', {
             timestamp,
             endpoint,
             reason,
-            requiredRoles: required,
-            userRoles,
-            owner
+            requiredPermissions: required,
+            userPermissions
         });
     }
 
-    static logSuccess(endpoint: string, owner: string, roles: ReadonlyArray<string>): void {
+    static logSuccess(endpoint: string, permissions: ReadonlyArray<string>): void {
         const timestamp = new Date().toISOString();
         console.log('[AUTH_SUCCESS]', {
             timestamp,
             endpoint,
-            owner,
-            roles
+            permissions
         });
     }
 
@@ -40,3 +37,4 @@ export class AuthLogger {
         });
     }
 }
+

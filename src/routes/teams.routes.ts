@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { authorize } from "../middlewares/authorize";
-import { Roles } from "../constants/roles";
+import { authorizePermissions } from "../middlewares/authorize";
+import { Permissions } from "../constants/permissions";
 
 import {
    createTeam,
@@ -53,7 +53,7 @@ const router = Router();
  *       201:
  *       description: Team created successfully
  */
-router.post("/", authorize([Roles.ADMIN, Roles.USER_MANAGEMENT]), createTeam);
+router.post("/", authorizePermissions([Permissions.USERS_MANAGE]), createTeam);
 
 /**
  * @swagger
@@ -72,7 +72,7 @@ router.post("/", authorize([Roles.ADMIN, Roles.USER_MANAGEMENT]), createTeam);
  *       200:
  *         description: List of teams
  */
-router.get("/", authorize([Roles.ADMIN, Roles.USER_MANAGEMENT]), listTeams);
+router.get("/", authorizePermissions([Permissions.USERS_MANAGE]), listTeams);
 
 /**
  * @swagger
@@ -90,7 +90,7 @@ router.get("/", authorize([Roles.ADMIN, Roles.USER_MANAGEMENT]), listTeams);
  *       200:
  *         description: Team details
  */
-router.get("/:teamId", authorize([Roles.ADMIN, Roles.USER_MANAGEMENT]), getTeam);
+router.get("/:teamId", authorizePermissions([Permissions.USERS_MANAGE]), getTeam);
 
 /**
  * @swagger
@@ -118,7 +118,7 @@ router.get("/:teamId", authorize([Roles.ADMIN, Roles.USER_MANAGEMENT]), getTeam)
  *       200:
  *         description: Team updated successfully
  */
-router.put("/:teamId", authorize([Roles.ADMIN, Roles.USER_MANAGEMENT]), updateTeam);
+router.put("/:teamId", authorizePermissions([Permissions.USERS_MANAGE]), updateTeam);
 
 /**
  * @swagger
@@ -136,7 +136,7 @@ router.put("/:teamId", authorize([Roles.ADMIN, Roles.USER_MANAGEMENT]), updateTe
  *       204:
  *         description: Team deleted
  */
-router.delete("/:teamId", authorize([Roles.ADMIN]), deleteTeam);
+router.delete("/:teamId", authorizePermissions([Permissions.USERS_MANAGE]), deleteTeam);
 
 /* ===============================
    MEMBERSHIPS
@@ -178,7 +178,7 @@ router.delete("/:teamId", authorize([Roles.ADMIN]), deleteTeam);
  *       201:
  *         description: Membership invitation created
  */
-router.post("/:teamId/memberships", authorize([Roles.ADMIN, Roles.USER_MANAGEMENT]), createMembership);
+router.post("/:teamId/memberships", authorizePermissions([Permissions.USERS_MANAGE]), createMembership);
 
 /**
  * @swagger
@@ -202,7 +202,7 @@ router.post("/:teamId/memberships", authorize([Roles.ADMIN, Roles.USER_MANAGEMEN
  *       200:
  *         description: List of memberships
  */
-router.get("/:teamId/memberships", authorize([Roles.ADMIN, Roles.USER_MANAGEMENT]), listMemberships);
+router.get("/:teamId/memberships", authorizePermissions([Permissions.USERS_MANAGE]), listMemberships);
 
 /**
  * @swagger
@@ -225,7 +225,7 @@ router.get("/:teamId/memberships", authorize([Roles.ADMIN, Roles.USER_MANAGEMENT
  *       200:
  *         description: Membership details
  */
-router.get("/:teamId/memberships/:membershipId", authorize([Roles.ADMIN, Roles.USER_MANAGEMENT]), getMembership);
+router.get("/:teamId/memberships/:membershipId", authorizePermissions([Permissions.USERS_MANAGE]), getMembership);
 
 /**
  * @swagger
@@ -256,7 +256,7 @@ router.get("/:teamId/memberships/:membershipId", authorize([Roles.ADMIN, Roles.U
  *       200:
  *         description: Membership updated
  */
-router.patch("/:teamId/memberships/:membershipId", authorize([Roles.ADMIN, Roles.USER_MANAGEMENT]), updateMembership);
+router.patch("/:teamId/memberships/:membershipId", authorizePermissions([Permissions.USERS_MANAGE]), updateMembership);
 
 /**
  * @swagger
@@ -275,6 +275,6 @@ router.patch("/:teamId/memberships/:membershipId", authorize([Roles.ADMIN, Roles
  *       204:
  *         description: Membership deleted
  */
-router.delete("/:teamId/memberships/:membershipId", authorize([Roles.ADMIN]), deleteMembership);
+router.delete("/:teamId/memberships/:membershipId", authorizePermissions([Permissions.USERS_MANAGE]), deleteMembership);
 
 export default router;

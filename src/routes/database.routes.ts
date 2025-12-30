@@ -1,6 +1,5 @@
 import { Router } from "express";
-import { authorize, authorizePermissions } from "../middlewares/authorize";
-import { Roles } from "../constants/roles";
+import { authorizePermissions } from "../middlewares/authorize";
 import { Permissions } from "../constants/permissions";
 
 import {
@@ -53,7 +52,7 @@ const router = Router();
  *     tags: [Databases]
  *     summary: Create a database
  */
-router.post("/", authorize([Roles.ADMIN]), createDatabase);
+router.post("/", authorizePermissions([Permissions.PAYMENTS_CREATE]), createDatabase);
 
 /**
  * @swagger
@@ -62,7 +61,7 @@ router.post("/", authorize([Roles.ADMIN]), createDatabase);
  *     tags: [Databases]
  *     summary: List all databases
  */
-router.get("/", authorize([Roles.ADMIN, Roles.PAYMENTS]), listDatabases);
+router.get("/", authorizePermissions([Permissions.PAYMENTS_READ]), listDatabases);
 
 /**
  * @swagger
@@ -76,7 +75,7 @@ router.get("/", authorize([Roles.ADMIN, Roles.PAYMENTS]), listDatabases);
  *         required: true
  *         schema: { type: string }
  */
-router.get("/:databaseId", authorize([Roles.ADMIN, Roles.PAYMENTS]), getDatabase);
+router.get("/:databaseId", authorizePermissions([Permissions.PAYMENTS_READ]), getDatabase);
 
 /**
  * @swagger
@@ -90,7 +89,7 @@ router.get("/:databaseId", authorize([Roles.ADMIN, Roles.PAYMENTS]), getDatabase
  *         required: true
  *         schema: { type: string }
  */
-router.put("/:databaseId", authorize([Roles.ADMIN]), updateDatabase);
+router.put("/:databaseId", authorizePermissions([Permissions.PAYMENTS_UPDATE]), updateDatabase);
 
 /**
  * @swagger
@@ -104,7 +103,7 @@ router.put("/:databaseId", authorize([Roles.ADMIN]), updateDatabase);
  *         required: true
  *         schema: { type: string }
  */
-router.delete("/:databaseId", authorize([Roles.ADMIN]), deleteDatabase);
+router.delete("/:databaseId", authorizePermissions([Permissions.PAYMENTS_DELETE]), deleteDatabase);
 
 /* ===============================
    COLLECTIONS
@@ -122,7 +121,7 @@ router.delete("/:databaseId", authorize([Roles.ADMIN]), deleteDatabase);
  *         required: true
  *         schema: { type: string }
  */
-router.post("/:databaseId/collections", authorize([Roles.ADMIN]), createCollection);
+router.post("/:databaseId/collections", authorizePermissions([Permissions.PAYMENTS_CREATE]), createCollection);
 
 /**
  * @swagger
@@ -136,7 +135,7 @@ router.post("/:databaseId/collections", authorize([Roles.ADMIN]), createCollecti
  *         required: true
  *         schema: { type: string }
  */
-router.get("/:databaseId/collections", authorize([Roles.ADMIN, Roles.PAYMENTS]), listCollections);
+router.get("/:databaseId/collections", authorizePermissions([Permissions.PAYMENTS_READ]), listCollections);
 
 /**
  * @swagger
@@ -154,7 +153,7 @@ router.get("/:databaseId/collections", authorize([Roles.ADMIN, Roles.PAYMENTS]),
  *         required: true
  *         schema: { type: string }
  */
-router.get("/:databaseId/collections/:collectionId", authorize([Roles.ADMIN, Roles.PAYMENTS]), getCollection);
+router.get("/:databaseId/collections/:collectionId", authorizePermissions([Permissions.PAYMENTS_READ]), getCollection);
 
 /**
  * @swagger
@@ -170,7 +169,7 @@ router.get("/:databaseId/collections/:collectionId", authorize([Roles.ADMIN, Rol
  *         name: collectionId
  *         required: true
  */
-router.put("/:databaseId/collections/:collectionId", authorize([Roles.ADMIN]), updateCollection);
+router.put("/:databaseId/collections/:collectionId", authorizePermissions([Permissions.PAYMENTS_UPDATE]), updateCollection);
 
 /**
  * @swagger
@@ -186,7 +185,7 @@ router.put("/:databaseId/collections/:collectionId", authorize([Roles.ADMIN]), u
  *         name: collectionId
  *         required: true
  */
-router.delete("/:databaseId/collections/:collectionId", authorize([Roles.ADMIN]), deleteCollection);
+router.delete("/:databaseId/collections/:collectionId", authorizePermissions([Permissions.PAYMENTS_DELETE]), deleteCollection);
 
 /* ===============================
    DOCUMENTS
@@ -208,7 +207,7 @@ router.delete("/:databaseId/collections/:collectionId", authorize([Roles.ADMIN])
  */
 router.post(
   "/:databaseId/collections/:collectionId/documents",
-  authorize([Roles.ADMIN, Roles.PAYMENTS]),
+  authorizePermissions([Permissions.PAYMENTS_CREATE]),
   createDocument
 );
 
@@ -226,7 +225,7 @@ router.post(
  */
 router.get(
   "/:databaseId/collections/:collectionId/documents",
-  authorize([Roles.ADMIN, Roles.PAYMENTS]),
+  authorizePermissions([Permissions.PAYMENTS_READ]),
   listDocuments
 );
 
@@ -246,7 +245,7 @@ router.get(
  */
 router.get(
   "/:databaseId/collections/:collectionId/documents/:documentId",
-  authorize([Roles.ADMIN, Roles.PAYMENTS]),
+  authorizePermissions([Permissions.PAYMENTS_READ]),
   getDocument
 );
 
@@ -266,7 +265,7 @@ router.get(
  */
 router.patch(
   "/:databaseId/collections/:collectionId/documents/:documentId",
-  authorize([Roles.ADMIN, Roles.PAYMENTS]),
+  authorizePermissions([Permissions.PAYMENTS_UPDATE]),
   updateDocument
 );
 
@@ -286,7 +285,7 @@ router.patch(
  */
 router.put(
   "/:databaseId/collections/:collectionId/documents/:documentId",
-  authorize([Roles.ADMIN, Roles.PAYMENTS]),
+  authorizePermissions([Permissions.PAYMENTS_UPDATE]),
   upsertDocument
 );
 
@@ -306,7 +305,7 @@ router.put(
  */
 router.delete(
   "/:databaseId/collections/:collectionId/documents/:documentId",
-  authorize([Roles.ADMIN]),
+  authorizePermissions([Permissions.PAYMENTS_DELETE]),
   deleteDocument
 );
 
@@ -328,7 +327,7 @@ router.delete(
  */
 router.patch(
   "/:databaseId/collections/:collectionId/documents/:documentId/:attribute/increment",
-  authorize([Roles.ADMIN, Roles.PAYMENTS]),
+  authorizePermissions([Permissions.PAYMENTS_UPDATE]),
   incrementDocumentAttribute
 );
 
@@ -350,7 +349,7 @@ router.patch(
  */
 router.patch(
   "/:databaseId/collections/:collectionId/documents/:documentId/:attribute/decrement",
-  authorize([Roles.ADMIN, Roles.PAYMENTS]),
+  authorizePermissions([Permissions.PAYMENTS_UPDATE]),
   decrementDocumentAttribute
 );
 
@@ -365,7 +364,7 @@ router.patch(
  *     tags: [Databases]
  *     summary: Create transaction
  */
-router.post("/transactions", authorize([Roles.ADMIN, Roles.PAYMENTS]), createTransaction);
+router.post("/transactions", authorizePermissions([Permissions.PAYMENTS_CREATE]), createTransaction);
 
 /**
  * @swagger
@@ -374,7 +373,7 @@ router.post("/transactions", authorize([Roles.ADMIN, Roles.PAYMENTS]), createTra
  *     tags: [Databases]
  *     summary: List transactions
  */
-router.get("/transactions", authorize([Roles.ADMIN, Roles.PAYMENTS]), listTransactions);
+router.get("/transactions", authorizePermissions([Permissions.PAYMENTS_READ]), listTransactions);
 
 /**
  * @swagger
@@ -386,7 +385,7 @@ router.get("/transactions", authorize([Roles.ADMIN, Roles.PAYMENTS]), listTransa
  *       - in: path
  *         name: transactionId
  */
-router.get("/transactions/:transactionId", authorize([Roles.ADMIN, Roles.PAYMENTS]), getTransaction);
+router.get("/transactions/:transactionId", authorizePermissions([Permissions.PAYMENTS_READ]), getTransaction);
 
 /**
  * @swagger
@@ -398,7 +397,7 @@ router.get("/transactions/:transactionId", authorize([Roles.ADMIN, Roles.PAYMENT
  *       - in: path
  *         name: transactionId
  */
-router.patch("/transactions/:transactionId", authorize([Roles.ADMIN]), updateTransaction);
+router.patch("/transactions/:transactionId", authorizePermissions([Permissions.PAYMENTS_UPDATE]), updateTransaction);
 
 /**
  * @swagger
@@ -410,7 +409,7 @@ router.patch("/transactions/:transactionId", authorize([Roles.ADMIN]), updateTra
  *       - in: path
  *         name: transactionId
  */
-router.delete("/transactions/:transactionId", authorize([Roles.ADMIN]), deleteTransaction);
+router.delete("/transactions/:transactionId", authorizePermissions([Permissions.PAYMENTS_DELETE]), deleteTransaction);
 
 /**
  * @swagger
@@ -424,7 +423,7 @@ router.delete("/transactions/:transactionId", authorize([Roles.ADMIN]), deleteTr
  */
 router.post(
   "/transactions/:transactionId/operations",
-  authorize([Roles.ADMIN, Roles.PAYMENTS]),
+  authorizePermissions([Permissions.PAYMENTS_CREATE]),
   createOperations
 );
 

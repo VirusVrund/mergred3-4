@@ -1,4 +1,3 @@
 export interface AuthContext {
-    roles: string[];
-    owner: string;
+    permissions: string[];
 }

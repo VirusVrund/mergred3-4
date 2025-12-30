@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { authorize } from "../middlewares/authorize";
-import { Roles } from "../constants/roles";
+import { authorizePermissions } from "../middlewares/authorize";
+import { Permissions } from "../constants/permissions";
 
 import {
   register,
@@ -93,7 +93,7 @@ router.post("/login", login);
  *       401:
  *         description: Unauthorized
  */
-router.get("/me", authorize([Roles.ADMIN, Roles.PAYMENTS, Roles.REPORTS, Roles.USER_MANAGEMENT]), getMe);
+router.get("/me", authorizePermissions([Permissions.USERS_MANAGE]), getMe);
 
 /**
  * @swagger
@@ -107,7 +107,7 @@ router.get("/me", authorize([Roles.ADMIN, Roles.PAYMENTS, Roles.REPORTS, Roles.U
  *       401:
  *         description: Unauthorized
  */
-router.delete("/logout", authorize([Roles.ADMIN, Roles.PAYMENTS, Roles.REPORTS, Roles.USER_MANAGEMENT]), logout);
+router.delete("/logout", authorizePermissions([Permissions.USERS_MANAGE]), logout);
 
 /**
  * @swagger
@@ -121,7 +121,7 @@ router.delete("/logout", authorize([Roles.ADMIN, Roles.PAYMENTS, Roles.REPORTS, 
  *       401:
  *         description: Unauthorized
  */
-router.delete("/logout-all", authorize([Roles.ADMIN, Roles.PAYMENTS, Roles.REPORTS, Roles.USER_MANAGEMENT]), logoutAll);
+router.delete("/logout-all", authorizePermissions([Permissions.USERS_MANAGE]), logoutAll);
 
 /**
  * @swagger
@@ -149,7 +149,7 @@ router.delete("/logout-all", authorize([Roles.ADMIN, Roles.PAYMENTS, Roles.REPOR
  *       401:
  *         description: Unauthorized
  */
-router.patch("/password", authorize([Roles.ADMIN, Roles.PAYMENTS, Roles.REPORTS, Roles.USER_MANAGEMENT]), updatePassword);
+router.patch("/password", authorizePermissions([Permissions.USERS_MANAGE]), updatePassword);
 
 /**
  * @swagger

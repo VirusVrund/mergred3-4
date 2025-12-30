@@ -8,7 +8,7 @@ import databaseRoutes from "./routes/database.routes";
 import authRoutes from "./routes/auth.routes";
 import storageRoutes from "./routes/storage.routes";
 import teamsRoutes from "./routes/teams.routes";
-import { Roles } from "./constants/roles";
+import { Permissions } from "./constants/permissions";
 
 dotenv.config();
 
@@ -22,7 +22,7 @@ app.use(express.json());
 // Uncomment to test without Module 2. Remove when integrating with upstream auth.
 // ============================================================================
 app.use((req, _res, next) => {
-  req.auth = { roles: [Roles.REPORTS], owner: 'local-tester' };
+  req.auth = { permissions: [Permissions.PAYMENTS_CREATE] };
   next();
 });
 // ============================================================================

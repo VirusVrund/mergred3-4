@@ -4,9 +4,7 @@
 export enum AuthErrorCode {
     MISSING_AUTH_CONTEXT = 'AUTH_001',
     INVALID_AUTH_CONTEXT = 'AUTH_002',
-    INSUFFICIENT_ROLE = 'AUTH_003',
-    INSUFFICIENT_PERMISSION = 'AUTH_004',
-    OWNER_MISMATCH = 'AUTH_005'
+    INSUFFICIENT_PERMISSION = 'AUTH_003'
 }
 
 /**
@@ -47,19 +45,9 @@ export const AuthErrors = {
         'Invalid authorization context',
         AuthErrorCode.INVALID_AUTH_CONTEXT
     ),
-    INSUFFICIENT_ROLE: createErrorResponse(
-        'forbidden',
-        'Insufficient role',
-        AuthErrorCode.INSUFFICIENT_ROLE
-    ),
     INSUFFICIENT_PERMISSION: createErrorResponse(
         'forbidden',
         'Insufficient permission',
         AuthErrorCode.INSUFFICIENT_PERMISSION
-    ),
-    OWNER_MISMATCH: createErrorResponse(
-        'forbidden',
-        'Resource owner mismatch',
-        AuthErrorCode.OWNER_MISMATCH
     )
 };

@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { authorize } from "../middlewares/authorize";
-import { Roles } from "../constants/roles";
+import { authorizePermissions } from "../middlewares/authorize";
+import { Permissions } from "../constants/permissions";
 
 import {
   createFile,
@@ -57,7 +57,7 @@ const router = Router();
  *       201:
  *         description: File uploaded successfully
  */
-router.post("/buckets/:bucketId/files", authorize([Roles.ADMIN, Roles.PAYMENTS]), createFile);
+router.post("/buckets/:bucketId/files", authorizePermissions([Permissions.PAYMENTS_CREATE]), createFile);
 
 /**
  * @swagger
@@ -89,7 +89,7 @@ router.post("/buckets/:bucketId/files", authorize([Roles.ADMIN, Roles.PAYMENTS])
  *       200:
  *         description: List of files
  */
-router.get("/buckets/:bucketId/files", authorize([Roles.ADMIN, Roles.PAYMENTS, Roles.REPORTS]), listFiles);
+router.get("/buckets/:bucketId/files", authorizePermissions([Permissions.PAYMENTS_READ]), listFiles);
 
 /**
  * @swagger
@@ -108,7 +108,7 @@ router.get("/buckets/:bucketId/files", authorize([Roles.ADMIN, Roles.PAYMENTS, R
  *       200:
  *         description: File metadata
  */
-router.get("/buckets/:bucketId/files/:fileId", authorize([Roles.ADMIN, Roles.PAYMENTS, Roles.REPORTS]), getFile);
+router.get("/buckets/:bucketId/files/:fileId", authorizePermissions([Permissions.PAYMENTS_READ]), getFile);
 
 /**
  * @swagger
@@ -133,7 +133,7 @@ router.get("/buckets/:bucketId/files/:fileId", authorize([Roles.ADMIN, Roles.PAY
  */
 router.get(
   "/buckets/:bucketId/files/:fileId/download",
-  authorize([Roles.ADMIN, Roles.PAYMENTS, Roles.REPORTS]),
+  authorizePermissions([Permissions.PAYMENTS_READ]),
   downloadFile
 );
 
@@ -160,7 +160,7 @@ router.get(
  */
 router.get(
   "/buckets/:bucketId/files/:fileId/view",
-  authorize([Roles.ADMIN, Roles.PAYMENTS, Roles.REPORTS]),
+  authorizePermissions([Permissions.PAYMENTS_READ]),
   viewFile
 );
 
@@ -203,7 +203,7 @@ router.get(
  */
 router.get(
   "/buckets/:bucketId/files/:fileId/preview",
-  authorize([Roles.ADMIN, Roles.PAYMENTS, Roles.REPORTS]),
+  authorizePermissions([Permissions.PAYMENTS_READ]),
   getFilePreview
 );
 
@@ -238,7 +238,7 @@ router.get(
  */
 router.put(
   "/buckets/:bucketId/files/:fileId",
-  authorize([Roles.ADMIN, Roles.PAYMENTS]),
+  authorizePermissions([Permissions.PAYMENTS_UPDATE]),
   updateFile
 );
 
@@ -261,7 +261,7 @@ router.put(
  */
 router.delete(
   "/buckets/:bucketId/files/:fileId",
-  authorize([Roles.ADMIN]),
+  authorizePermissions([Permissions.PAYMENTS_DELETE]),
   deleteFile
 );
 
