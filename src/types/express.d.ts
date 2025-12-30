@@ -6,3 +6,16 @@ declare module 'express-serve-static-core' {
         auth?: AuthContext;
     }
 }
+
+declare global {
+  namespace Express {
+    interface Request {
+      apiKey?: {
+        permissions: string[];
+        
+      };
+    }
+  }
+}
+
+export {};
